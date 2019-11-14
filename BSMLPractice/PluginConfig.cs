@@ -1,4 +1,6 @@
-﻿namespace BSMLPractice
+﻿using System.Collections.Generic;
+
+namespace BSMLPractice
 {
     internal class PluginConfig
     {
@@ -10,6 +12,7 @@
         public string ExampleStringSetting = "example";
         public float ExampleSliderSetting = 2f;
 
+        public static List<object> ListChoices = new List<object>() { "ex1", "ex2", "ex3" };
         private int _exampleListSetting;
         /// <summary>
         /// Make sure the value isn't out of range. <see cref="BSMLPractice.Views.BSMLSettingsView.ListChoices"/>.
@@ -19,7 +22,7 @@
             get { return _exampleListSetting; }
             set
             {
-                if (value >= 0 && value < 3)
+                if (value >= 0 && value < ListChoices.Count)
                     _exampleListSetting = value;
                 else
                     Logger.log?.Warn($"Example list setting value of {value} is out of range.");

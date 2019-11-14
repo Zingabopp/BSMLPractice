@@ -41,16 +41,23 @@ namespace BSMLPractice.Views
             set { Plugin.ExampleGameplayBoolSetting = !value; }
         }
 
+        [UIValue("exampleString")]
+        public string StringExample
+        {
+            get { return Config.ExampleStringSetting; }
+            set { Config.ExampleStringSetting = value; }
+        }
 
-        private static List<object> _listChoices = new List<object>() { "ex1", "ex2", "ex3" };
-        [UIValue("list-choices")]
-        public List<object> ListChoices { get { return _listChoices; } }
+
+        
+        [UIValue("list-options")]
+        public List<object> ListChoices { get { return PluginConfig.ListChoices; } }
 
         /// <summary>
         /// value must be a field, not a property.
         /// </summary>
         [UIValue("list-value")]
-        private string ListValue = (string)_listChoices[Config.ExampleListSetting];
+        private string ListValue = (string)PluginConfig.ListChoices[Config.ExampleListSetting];
 
         [UIAction("list-OnChange")]
         private void List_OnChange(object obj)
