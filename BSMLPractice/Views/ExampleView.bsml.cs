@@ -9,7 +9,7 @@ using BeatSaberMarkupLanguage.ViewControllers;
 
 namespace BSMLPractice.Views
 {
-    public class BSMLExampleViewController : BSMLResourceViewController
+    public class ExampleView : BSMLResourceViewController
     {
         public override string ResourceName => "BSMLPractice.Views.ExampleView.bsml";
 

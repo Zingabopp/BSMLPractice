@@ -2,6 +2,6 @@
 	<bool-setting text='Bool Example' value='exampleBool' hover-hint='Test Test'></bool-setting>
 	<checkbox-setting text='Stop Coroutine' value='stopCoroutine' apply-on-change='True'></checkbox-setting>
   <slider-setting text='Example Int Setting' value='exampleInt' min='0' max='10' integer-only='true'></slider-setting>
-  <list-setting text='List Example' value='textSegment-value' choices='textSegment-options' on-change='textSegment-apply' apply-on-change='true'></list-setting>
-  <dropdown-list-setting text='List Example' value='textSegment-value' choices='textSegment-options' on-change='textSegment-apply' apply-on-change='true'></dropdown-list-setting>
+  <list-setting text='List Example' value='list-value' choices='list-choices' on-change='list-OnChange' apply-on-change='true'></list-setting>
+  <dropdown-list-setting text='Dropdown List Example' value='list-value' choices='list-choices' on-change='list-OnChange' apply-on-change='true'></dropdown-list-setting>
 </settings-container>

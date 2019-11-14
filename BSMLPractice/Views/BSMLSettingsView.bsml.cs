@@ -6,9 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using TMPro;
 
-namespace BSMLPractice.UI
+namespace BSMLPractice.Views
 {
-    internal class BSMLExampleSettings_UI : PersistentSingleton<BSMLExampleSettings_UI>
+    internal class BSMLSettingsView : PersistentSingleton<BSMLSettingsView>
     {
         private static PluginConfig Config => Plugin.config.Value;
         private void Awake()
@@ -27,10 +27,10 @@ namespace BSMLPractice.UI
         public int ExampleInt
         {
             get { return Config.ExampleIntSetting; }
-            set 
-            { 
-                if(value >= 0 && value <= 10)
-                    Config.ExampleIntSetting = value; 
+            set
+            {
+                if (value >= 0 && value <= 10)
+                    Config.ExampleIntSetting = value;
             }
         }
 
@@ -42,27 +42,30 @@ namespace BSMLPractice.UI
         }
 
 
-        private static List<object> options = new List<object>() { "ex1", "ex2", "ex3" };
-        [UIValue("textSegment-options")]
-        public List<object> textSegmentOptions = options;
+        private static List<object> _listChoices = new List<object>() { "ex1", "ex2", "ex3" };
+        [UIValue("list-choices")]
+        public List<object> ListChoices { get { return _listChoices; } }
 
-        [UIValue("textSegment-value")]
-        private string TextSegmentsExample = (string)options[Config.ExampleTextSegment];
+        /// <summary>
+        /// value must be a field, not a property.
+        /// </summary>
+        [UIValue("list-value")]
+        private string ListValue = (string)_listChoices[Config.ExampleListSetting];
 
-        [UIAction("textSegment-apply")]
-        private void TextSegment_Apply(object obj)
+        [UIAction("list-OnChange")]
+        private void List_OnChange(object obj)
         {
             int index = 0;
             try
             {
-                index = textSegmentOptions.FindIndex(o => o == obj);
-                
+                index = ListChoices.FindIndex(o => o == obj);
+
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Logger.log?.Warn($"Error in TextSegment_Apply: {ex.Message}");
             }
-            Config.ExampleTextSegment = index;
+            Config.ExampleListSetting = index;
         }
 
         /// <summary>

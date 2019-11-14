@@ -53,7 +53,7 @@ namespace BSMLPractice
                         ExampleTextSegment = 0,
                         ExampleStringSetting = "example",
                         ExampleSliderSetting = 2,
-                        ExampleListSetting = 3f
+                        ExampleListSetting = 2
                     });
                 }
                 config = v;
@@ -121,7 +121,7 @@ namespace BSMLPractice
             }
             if (nextScene.name == "MenuCore")
             {
-                BSMLSettings.instance.AddSettingsMenu(Name, "BSMLPractice.Views.BSMLSettingsView.bsml", UI.BSMLExampleSettings_UI.instance);
+                BSMLSettings.instance.AddSettingsMenu(Name, "BSMLPractice.Views.BSMLSettingsView.bsml", Views.BSMLSettingsView.instance);
                 var exampleGameObject = new GameObject($"{Name}.ExampleMonobehaviour").AddComponent<ExampleMonobehaviour>();
             }
             if (nextScene.name == "GameCore")
