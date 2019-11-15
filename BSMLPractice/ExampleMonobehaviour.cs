@@ -25,7 +25,7 @@ namespace BSMLPractice
         private IEnumerator ExampleCoroutine()
         {
             Logger.log?.Info($"{name}.ExampleCoroutine(): In ExampleCoroutine().");
-            WaitForSeconds exampleWait = new WaitForSeconds(5); // Created here so we can reuse it in the loop.
+            WaitForSeconds exampleWait = new WaitForSeconds(15); // Created here so we can reuse it in the loop.
             WaitUntil waitUntilTrue = new WaitUntil(() => Plugin.ExampleGameplayBoolSetting);
             while (true)
             {
@@ -33,6 +33,8 @@ namespace BSMLPractice
                 while (Plugin.ExampleGameplayBoolSetting)
                 {
                     Logger.log?.Info($"{name}.ExampleCoroutine(): ExampleGamePlayBoolSetting is true, count is {count}, ExampleGameplayListSetting: {Plugin.ExampleGameplayListSetting}");
+                    var nav = BeatSaberMarkupLanguage.BeatSaberUI.CreateDismissableNavigationController();
+                    nav.PresentViewControllerCoroutine(new Views.ExampleView(), null, true);
                     count++;
                     // yield return new WaitForSeconds(5); // Could do this, but it would create extra garbage to recreate the same object every time.
                     yield return exampleWait;

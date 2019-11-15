@@ -121,6 +121,7 @@ namespace BSMLPractice
             }
             if (nextScene.name == "MenuCore")
             {
+                CustomUI.MenuButton.MenuButtonUI.AddButton("BSMLPractice", "BSMLPractice hint text.", OnClick);
                 BSMLSettings.instance.AddSettingsMenu(Name, "BSMLPractice.Views.BSMLSettingsView.bsml", Views.BSMLSettingsView.instance);
                 var exampleGameObject = new GameObject($"{Name}.ExampleMonobehaviour").AddComponent<ExampleMonobehaviour>();
             }
@@ -128,6 +129,24 @@ namespace BSMLPractice
             {
 
             }
+        }
+
+        internal static UI.ExampleFlowCoordinator ExampleView;
+        internal static void OnClick()
+        {
+            if (ExampleView == null)
+                ExampleView = new GameObject("BSMLPractice.ExampleFlowCoordinator").AddComponent<UI.ExampleFlowCoordinator>();
+            MainFlowCoordinator main = Resources.FindObjectsOfTypeAll<MainFlowCoordinator>().First();
+            foreach (var item in main.mainScreenViewControllers)
+            {
+                Logger.log?.Critical($"{item.name}: {item.navigationController?.name}");
+            }
+            if (main != null)
+            {
+                main.InvokePrivateMethod("PresentFlowCoordinator", new object[] { ExampleView, null, false, false });
+            }
+            else
+                Logger.log?.Warn("MainFlowCoordinator not found");
         }
 
         /// <summary>

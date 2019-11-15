@@ -1,4 +1,5 @@
 ﻿using BeatSaberMarkupLanguage.Attributes;
+using BeatSaberMarkupLanguage.Components;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,12 @@ namespace BSMLPractice.Views
         private void Awake()
         {
 
+        }
+
+        [UIAction("openExampleView")]
+        public void OpenExampleView()
+        {
+            Plugin.OnClick();
         }
 
         [UIValue("exampleBool")]
@@ -40,7 +47,7 @@ namespace BSMLPractice.Views
             get { return !Plugin.ExampleGameplayBoolSetting; }
             set { Plugin.ExampleGameplayBoolSetting = !value; }
         }
-
+        CustomListTableData data;
         [UIValue("exampleString")]
         public string StringExample
         {

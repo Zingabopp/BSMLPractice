@@ -1,11 +1,17 @@
 ﻿<settings-container>
+  <clickable-text text="Open Example View" on-click="openExampleView"></clickable-text>
   <bool-setting text='Bool Example' value='exampleBool' hover-hint='Test Test'></bool-setting>
   <checkbox-setting text='Stop Coroutine' value='stopCoroutine' apply-on-change='True'></checkbox-setting>
   <slider-setting text='Example Int Setting' value='exampleInt' min='0' max='10' integer-only='true'></slider-setting>
   <string-setting text='Example String Setting' value='exampleString'></string-setting>
   <settings-submenu text='List Examples' hover-hint='These settings are different ways to display a list of choices.'>
-    <list-setting text='List Example' value='list-value' options='list-options' on-change='list-OnChange' apply-on-change='true'></list-setting>
-    <dropdown-list-setting text='Dropdown List Example' value='list-value' options='list-options' on-change='list-OnChange' apply-on-change='true'></dropdown-list-setting>
-    <list-slider-setting text='ListSlider Example' value='list-value' options='list-options' on-change='list-OnChange'></list-slider-setting>
+    <settings-container>
+      <horizontal pref-width='90'>
+        <clickable-text text='[-] Back' click-event='back'></clickable-text>
+      </horizontal>
+      <list-setting text='List Example' value='list-value' options='list-options' on-change='list-OnChange' apply-on-change='true'></list-setting>
+      <dropdown-list-setting text='Dropdown List Example' value='list-value' options='list-options' on-change='list-OnChange' apply-on-change='true'></dropdown-list-setting>
+      <list-slider-setting text='ListSlider Example' value='list-value' options='list-options' on-change='list-OnChange'></list-slider-setting>
+    </settings-container>
   </settings-submenu>
 </settings-container>

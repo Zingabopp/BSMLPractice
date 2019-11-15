@@ -96,6 +96,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReflectionUtilExample.cs" />
     <Compile Include="UI\BSMLPractice_SettingsUI.cs" />
+    <Compile Include="UI\ExampleFlowCoordinator.cs" />
     <Compile Include="Views\BSMLSettingsView.bsml.cs" />
     <Compile Include="Views\ExampleView.bsml.cs" />
   </ItemGroup>
@@ -108,10 +109,10 @@
     <EmbeddedResource Include="Views\BSMLSettingsView.bsml" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Views\ExampleView.bsml">
+    <EmbeddedResource Include="Views\ExampleView.bsml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </None>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!--Build Targets-->
