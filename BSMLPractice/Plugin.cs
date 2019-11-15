@@ -123,6 +123,14 @@ namespace BSMLPractice
             {
                 CustomUI.MenuButton.MenuButtonUI.AddButton("BSMLPractice", "BSMLPractice hint text.", OnClick);
                 BSMLSettings.instance.AddSettingsMenu(Name, "BSMLPractice.Views.BSMLSettingsView.bsml", Views.BSMLSettingsView.instance);
+                try
+                {
+                    BeatSaberMarkupLanguage.MenuButtons.MenuButtons.instance.RegisterButton(new UI.ModButton("BSMLPractice", "BSMLPractice hint text.", OnClick));
+                }
+                catch (Exception ex)
+                {
+                    Logger.log?.Error(ex);
+                }
                 var exampleGameObject = new GameObject($"{Name}.ExampleMonobehaviour").AddComponent<ExampleMonobehaviour>();
             }
             if (nextScene.name == "GameCore")
@@ -167,6 +175,7 @@ namespace BSMLPractice
                 configProvider.Store(config.Value); // Save settings.
                 Logger.log.Debug("Creating plugin's UI");
                 UI.BSMLPractice_SettingsUI.CreateUI();
+
             }
         }
 

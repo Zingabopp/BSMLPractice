@@ -97,6 +97,7 @@
     <Compile Include="ReflectionUtilExample.cs" />
     <Compile Include="UI\BSMLPractice_SettingsUI.cs" />
     <Compile Include="UI\ExampleFlowCoordinator.cs" />
+    <Compile Include="UI\ModButton.cs" />
     <Compile Include="Views\BSMLSettingsView.bsml.cs" />
     <Compile Include="Views\ExampleView.bsml.cs" />
   </ItemGroup>
