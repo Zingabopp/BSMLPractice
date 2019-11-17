@@ -98,8 +98,11 @@
     <Compile Include="UI\BSMLPractice_SettingsUI.cs" />
     <Compile Include="UI\ExampleFlowCoordinator.cs" />
     <Compile Include="UI\ModButton.cs" />
+    <Compile Include="Views\BSMLNames.cs" />
     <Compile Include="Views\BSMLSettingsView.bsml.cs" />
-    <Compile Include="Views\ExampleView.bsml.cs" />
+    <Compile Include="Views\ExampleViewRight.bsml.cs" />
+    <Compile Include="Views\ExampleViewLeft.bsml.cs" />
+    <Compile Include="Views\ExampleViewCenter.bsml.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="manifest.json" />
@@ -108,9 +111,17 @@
     <None Include="CreateJunctions.bat" />
     <None Include=".gitignore" />
     <EmbeddedResource Include="Views\BSMLSettingsView.bsml" />
+    <EmbeddedResource Include="Views\ExampleViewLeft.bsml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\ExampleViewRight.bsml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Views\ExampleView.bsml">
+    <EmbeddedResource Include="Views\ExampleViewCenter.bsml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>

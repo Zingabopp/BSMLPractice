@@ -9,9 +9,9 @@ using BeatSaberMarkupLanguage.ViewControllers;
 
 namespace BSMLPractice.Views
 {
-    public class ExampleView : BSMLResourceViewController
+    public class ExampleViewCenter : BSMLResourceViewController
     {
-        public override string ResourceName => "BSMLPractice.Views.ExampleView.bsml";
+        public override string ResourceName => BSMLNames.ExampleViewCenter;
 
         [UIComponent("some-text")]
         private TextMeshProUGUI text;
@@ -20,6 +20,9 @@ namespace BSMLPractice.Views
         private void ButtonPress()
         {
             text.text = "Hey look, the text changed";
+            OnReloadPressed?.Invoke();
         }
+
+        public event Action OnReloadPressed;
     }
 }

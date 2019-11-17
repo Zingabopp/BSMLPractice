@@ -1,0 +1,31 @@
+﻿<bg>
+  <back-button on-click='back-pressed' />
+  <horizontal child-control-height='false' child-control-width='false'>
+  <vertical child-control-height='false' child-control-width='true'
+            child-expand-width='true'
+            preferred-width='105' pad-top='-40' pad-left='25'
+            spacing='0'>
+    <horizontal bg='panel-top' pad-top='0' preferred-height='12'>
+      <text text='Example Thing' align='Center' font-size='10'></text>
+    </horizontal>
+    <settings-container preferred-height='50' preferred-width='99'>
+      <slider-setting text='Test'/>
+      <bool-setting text='Test Bool'/>
+      <settings-submenu text='List Examples' hover-hint='These settings are different ways to display a list of choices.'>
+        <settings-container>
+          <horizontal pref-width='90'>
+            <clickable-text text='[-] Back'></clickable-text>
+          </horizontal>
+          <slider-setting text='Test'/>
+        </settings-container>
+      </settings-submenu>
+    </settings-container>
+    <vertical preferred-width='105' pad-top='12'>
+      <bottom-button-panel spacing='0'>
+        <button on-click='back-pressed' text='Back'></button>
+        <button on-click='pressed' text='Test Button'/>
+      </bottom-button-panel>
+    </vertical>
+  </vertical>
+  </horizontal>
+</bg>

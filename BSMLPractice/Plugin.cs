@@ -10,6 +10,7 @@ using UnityEngine;
 using Harmony;
 using IPALogger = IPA.Logging.Logger;
 using BeatSaberMarkupLanguage.Settings;
+using BeatSaberMarkupLanguage.MenuButtons;
 using System.Reflection;
 
 namespace BSMLPractice
@@ -122,10 +123,10 @@ namespace BSMLPractice
             if (nextScene.name == "MenuCore")
             {
                 CustomUI.MenuButton.MenuButtonUI.AddButton("BSMLPractice", "BSMLPractice hint text.", OnClick);
-                BSMLSettings.instance.AddSettingsMenu(Name, "BSMLPractice.Views.BSMLSettingsView.bsml", Views.BSMLSettingsView.instance);
+                BSMLSettings.instance.AddSettingsMenu(Name, Views.BSMLNames.BSMLSettingsView, Views.BSMLSettingsView.instance);
                 try
                 {
-                    BeatSaberMarkupLanguage.MenuButtons.MenuButtons.instance.RegisterButton(new UI.ModButton("BSMLPractice", "BSMLPractice hint text.", OnClick));
+                    MenuButtons.instance.RegisterButton(new MenuButton("BSML Practice", OnClick));
                 }
                 catch (Exception ex)
                 {

@@ -14,10 +14,7 @@ namespace BSMLPractice.UI
         public override string Text { get { return _text; } }
         public override string HoverHint { get { return _hoverHint; } }
 
-        public override void OnClick()
-        {
-            Click?.Invoke();
-        }
+        public override Action OnClick { get { return Click; } }
 
         private Action _click;
         public Action Click
