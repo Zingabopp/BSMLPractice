@@ -6,20 +6,43 @@ using System.Threading.Tasks;
 using TMPro;
 using BeatSaberMarkupLanguage.Attributes;
 using BeatSaberMarkupLanguage.ViewControllers;
+using System.IO;
+using BeatSaberMarkupLanguage;
+using BSMLPractice.UI;
 
 namespace BSMLPractice.Views
 {
-    public class ExampleViewRight : BSMLResourceViewController
+    public class ExampleViewRight : HotReloadableViewController
     {
         public override string ResourceName => BSMLNames.ExampleViewRight;
+        public override string ResourceFilePath => @"C:\Users\Jared\source\repos\BSMLPractice\BSMLPractice\Views\ExampleViewRight.bsml";
 
         [UIComponent("some-text")]
         private TextMeshProUGUI text;
 
-        [UIAction("press")]
-        private void ButtonPress()
+        [UIAction("pressed")]
+        private void TestButtonPressed()
         {
-            text.text = "Hey look, the text changed";
+            ContentChanged = true;
+            text.text = "Right Test Button Pressed!";
+            OnTestPressed?.Invoke();
         }
+
+        [UIAction("back-pressed")]
+        private void BackButtonPressed()
+        {
+            OnBackPressed?.Invoke();
+        }
+
+        /// <summary>
+        /// Destroy any IDisposable assets here.
+        /// </summary>
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+        }
+
+        public event Action OnBackPressed;
+        public event Action OnTestPressed;
     }
 }

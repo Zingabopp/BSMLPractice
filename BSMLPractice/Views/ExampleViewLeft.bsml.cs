@@ -9,34 +9,14 @@ using BeatSaberMarkupLanguage.ViewControllers;
 using VRUI;
 using BeatSaberMarkupLanguage;
 using System.IO;
+using BSMLPractice.UI;
 
 namespace BSMLPractice.Views
 {
-    public class ExampleViewLeft : BSMLViewController
+    public class ExampleViewLeft : HotReloadableViewController
     {
-        private string _resourceName = BSMLNames.ExampleViewLeft;
-        public string _altResourcePath = @"C:\Users\Jared\source\repos\BSMLPractice\BSMLPractice\Views\ExampleViewLeft.bsml";
-        private string _content;
-        public override string Content
-        {
-            get
-            {
-                if (string.IsNullOrEmpty(_content))
-                    _content = File.ReadAllText(_altResourcePath);
-                return _content;
-            }
-        }
-        private bool _refreshContent;
-        public bool RefreshContent {
-            get { return _refreshContent; }
-            set
-            {
-                if (value == true)
-                    _content = null;
-                _refreshContent = value;
-            }
-        }
-        
+        public override string ResourceName => BSMLNames.ExampleViewLeft;
+        public override string ResourceFilePath => @"C:\Users\Jared\source\repos\BSMLPractice\BSMLPractice\Views\ExampleViewLeft.bsml";
 
         [UIComponent("some-text")]
         private TextMeshProUGUI text;
@@ -44,8 +24,7 @@ namespace BSMLPractice.Views
         [UIAction("pressed")]
         private void TestButtonPressed()
         {
-            RefreshContent = true;
-            _resourceName = BSMLNames.ExampleViewRight;
+            ContentChanged = true;
             text.text = "Left Test Button Pressed!";
             OnTestPressed?.Invoke();
         }
@@ -54,14 +33,6 @@ namespace BSMLPractice.Views
         private void BackButtonPressed()
         {
             OnBackPressed?.Invoke();
-        }
-
-        protected override void DidActivate(bool firstActivation, ActivationType type)
-        {
-            if (RefreshContent && !firstActivation)
-                BSMLParser.instance.Parse(Content, gameObject, this);
-            base.DidActivate(firstActivation, type);
-            RefreshContent = false;
         }
 
         /// <summary>

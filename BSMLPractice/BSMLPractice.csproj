@@ -35,6 +35,9 @@
     <Reference Include="BSML">
       <HintPath>References\Plugins\BSML.dll</HintPath>
     </Reference>
+    <Reference Include="SongCore">
+      <HintPath>References\Plugins\SongCore.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -97,6 +100,7 @@
     <Compile Include="ReflectionUtilExample.cs" />
     <Compile Include="UI\BSMLPractice_SettingsUI.cs" />
     <Compile Include="UI\ExampleFlowCoordinator.cs" />
+    <Compile Include="UI\HotReloadableViewController.cs" />
     <Compile Include="UI\ModButton.cs" />
     <Compile Include="Views\BSMLNames.cs" />
     <Compile Include="Views\BSMLSettingsView.bsml.cs" />

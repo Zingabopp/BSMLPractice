@@ -1,14 +1,11 @@
 ﻿using System;
 using VRUI;
-using CustomUI.BeatSaber;
-using CustomUI.Utilities;
+using BeatSaberMarkupLanguage;
 using UnityEngine;
 using BSMLPractice.Views;
 using System.Reflection;
 using System.Linq;
 using System.Collections.Generic;
-using UnityEngine.Events;
-using UnityEngine.SceneManagement;
 using System.IO;
 
 namespace BSMLPractice.UI
@@ -18,8 +15,7 @@ namespace BSMLPractice.UI
         private ExampleViewCenter _centerViewController;
         private ExampleViewLeft _leftViewController;
         private ExampleViewRight _rightViewController;
-        protected VRUINavigationController leftNavigationController;
-        public Func<ExampleViewCenter, string> OnContentCreated;
+        //protected VRUINavigationController leftNavigationController;
 
         protected override void DidActivate(bool firstActivation, ActivationType activationType)
         {
@@ -27,25 +23,23 @@ namespace BSMLPractice.UI
             {
                 if (firstActivation)
                 {
-                    leftNavigationController = BeatSaberUI.CreateViewController<VRUINavigationController>();
+                    //leftNavigationController = BeatSaberUI.CreateViewController<VRUINavigationController>();
                     Logger.log?.Warn("First activation");
                     _centerViewController = BeatSaberUI.CreateViewController<ExampleViewCenter>();
                     Logger.log?.Warn("Center created");
                     _leftViewController = BeatSaberUI.CreateViewController<ExampleViewLeft>();
-                    SetViewControllerToNavigationConctroller(leftNavigationController, _leftViewController);
+                    //SetViewControllerToNavigationConctroller(leftNavigationController, _leftViewController);
                     Logger.log?.Warn("Left created");
                     _rightViewController = BeatSaberUI.CreateViewController<ExampleViewRight>();
                     Logger.log?.Warn("Right created");
                     base.title = "BSMLPractice";
                 }
-                if (activationType == FlowCoordinator.ActivationType.AddedToHierarchy)
+                if (activationType == ActivationType.AddedToHierarchy)
                 {
                     Logger.log?.Warn("AddedToHierarchy");
                     ProvideInitialViewControllers(_centerViewController, _leftViewController, _rightViewController);
                     _leftViewController.OnBackPressed -= BackButton_Pressed;
                     _leftViewController.OnBackPressed += BackButton_Pressed;
-                    _centerViewController.OnReloadPressed -= OnTestPressed;
-                    _centerViewController.OnReloadPressed += OnTestPressed;
                 }
                 else
                 {
@@ -63,48 +57,34 @@ namespace BSMLPractice.UI
             var waitTime = new WaitForSeconds(.5f);
             using (var watcher = new FileSystemWatcher())
             {
-                watcher.Path = Path.GetDirectoryName(_leftViewController._altResourcePath);
-                watcher.Filter = "*Left.bsml";
+                watcher.Path = Path.GetDirectoryName(_leftViewController.ResourceFilePath);
+                watcher.Filter = "*.bsml";
                 watcher.NotifyFilter = NotifyFilters.LastWrite;
                 watcher.Changed += Watcher_Changed;
                 watcher.EnableRaisingEvents = true;
-                while (this.isActivated)
+                while (isActivated)
                 {
-                    if (fileChanged && !isReloading)
-                    {
-                        OnTestPressed();
-                    }
+                    if (_leftViewController.ContentChanged)
+                        HotReloadableViewController.RefreshViewController(_leftViewController);
+                    if (_rightViewController.ContentChanged)
+                        HotReloadableViewController.RefreshViewController(_rightViewController);
+                    if (_centerViewController.ContentChanged)
+                        HotReloadableViewController.RefreshViewController(_centerViewController);
                     yield return waitTime;
                 }
             }
 
         }
-        private bool isReloading = false;
-        private bool fileChanged = false;
+
+
         private void Watcher_Changed(object sender, FileSystemEventArgs e)
         {
-            fileChanged = true;
-        }
-
-        protected void OnTestPressed()
-        {
-            isReloading = true;
-            try
-            {
-                _leftViewController.RefreshContent = true;
-                _leftViewController.__Deactivate(VRUIViewController.DeactivationType.NotRemovedFromHierarchy, false);
-                for (int i = 0; i < _leftViewController.transform.childCount; i++)
-                    GameObject.Destroy(_leftViewController.transform.GetChild(i).gameObject);
-                fileChanged = false;
-                _leftViewController.__Activate(VRUIViewController.ActivationType.NotAddedToHierarchy);
-            }
-            catch (Exception ex)
-            {
-                Logger.log?.Error(ex);
-            }
-            isReloading = false;
-            if (fileChanged)
-                OnTestPressed();
+            if (e.FullPath == _leftViewController.ResourceFilePath)
+                _leftViewController.MarkDirty();
+            if (e.FullPath == _rightViewController.ResourceFilePath)
+                _rightViewController.MarkDirty();
+            if (e.FullPath == _centerViewController.ResourceFilePath)
+                _centerViewController.MarkDirty();
         }
 
         protected override void DidDeactivate(DeactivationType type)

@@ -1,9 +1,18 @@
 ﻿<vertical child-control-height='false'>
-  <horizontal bg='panel-top' pad-left='10' pad-right='10' horizontal-fit='PreferredSize'>
-    <text text='Example' align='Center' font-size='10'></text>
+  <horizontal bg='panel-top' pad-top='0' preferred-height='6'>
+    <text text='Example' align='Center' font-size='5' ignore-layout='true'/>
   </horizontal>
-  <horizontal bg='round-rect-panel' pad='8'>
-    <text id='some-text' text='Looks at this fancy text.'></text>
+  <horizontal pad-bottom='5' preferred-width='150' preferred-height='60' bg='round-rect-panel'>
+    <vertical child-control-height='true' pad-top='8' pad-bottom='2'>
+      <page-button click-event='list#PageUp' direction='Up' button-width='50'
+                   ignore-layout='true'/>
+      <list id='list' data='table-data' list-style='List' visible-cells='5' />
+      <page-button click-event='list#PageDown' direction='Down' button-width='50'
+                   ignore-layout='true' anchor-pos-y='-59' />
+    </vertical>
+    <vertical bg='round-rect-panel' bg-color='#DC143C' preferred-width='80'>
+      
+    </vertical>
   </horizontal>
   <button on-click='press' text='Reload Left'></button>
 </vertical>
