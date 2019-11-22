@@ -7,7 +7,7 @@
       <page-button click-event='list#PageUp' direction='Up' button-width='50'
                    ignore-layout='true'/>
       <list id='list' data='table-data' list-style='List' visible-cells='5' />
-      <page-button click-event='list#PageDown' direction='Down' button-width='50'
+      <page-button click-event='list#PageDown' direction='Down' glow-color='#FF0000FF' button-width='50'
                    ignore-layout='true' anchor-pos-y='-59' />
     </vertical>
     <vertical bg='round-rect-panel' bg-color='#DC143C' preferred-width='80'>

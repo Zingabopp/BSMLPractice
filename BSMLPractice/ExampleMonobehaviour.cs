@@ -14,6 +14,7 @@ namespace BSMLPractice
     /// </summary>
     public class ExampleMonobehaviour : MonoBehaviour
     {
+        public static int CurrentCount;
         /// <summary>
         /// Since we only want one of this particular script to exist at a time, keep a reference here.
         /// </summary>
@@ -25,10 +26,11 @@ namespace BSMLPractice
         private IEnumerator ExampleCoroutine()
         {
             Logger.log?.Info($"{name}.ExampleCoroutine(): In ExampleCoroutine().");
-            WaitForSeconds exampleWait = new WaitForSeconds(15); // Created here so we can reuse it in the loop.
+            WaitForSeconds exampleWait = new WaitForSeconds(10); // Created here so we can reuse it in the loop.
             WaitUntil waitUntilTrue = new WaitUntil(() => Plugin.ExampleGameplayBoolSetting);
             while (true)
             {
+                CurrentCount = 1;
                 int count = 1;
                 while (Plugin.ExampleGameplayBoolSetting)
                 {
@@ -36,6 +38,7 @@ namespace BSMLPractice
                     var nav = BeatSaberMarkupLanguage.BeatSaberUI.CreateDismissableNavigationController();
                     nav.PresentViewControllerCoroutine(new Views.ExampleViewCenter(), null, true);
                     count++;
+                    CurrentCount = count;
                     // yield return new WaitForSeconds(5); // Could do this, but it would create extra garbage to recreate the same object every time.
                     yield return exampleWait;
                 }

@@ -1,15 +1,19 @@
 ﻿using BeatSaberMarkupLanguage.Attributes;
 using BeatSaberMarkupLanguage.Components;
+using BeatSaberMarkupLanguage.Notify;
+//using BSMLPractice.Notify;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using TMPro;
+using UnityEngine;
 
 namespace BSMLPractice.Views
 {
-    internal class BSMLSettingsView : PersistentSingleton<BSMLSettingsView>
+    internal class BSMLSettingsView : PersistentSingleton<BSMLSettingsView>, INotifiableHost
     {
         private static PluginConfig Config => Plugin.config.Value;
         private void Awake()
@@ -56,7 +60,7 @@ namespace BSMLPractice.Views
         }
 
 
-        
+
         [UIValue("list-options")]
         public List<object> ListChoices { get { return PluginConfig.ListChoices; } }
 
@@ -101,7 +105,56 @@ namespace BSMLPractice.Views
             Logger.log.Warn("CancelClicked");
         }
 
+        public void OnEnable()
+        {
+            StartCoroutine(IncrementThing());
+        }
 
+        private int _thing;
+        [UIValue("thing")]
+        public int Thing
+        {
+            get { return _thing; }
+            set
+            {
+                if (_thing == value)
+                    return;
+                _thing = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        public IEnumerator<WaitForSeconds> IncrementThing()
+        {
+            var wait = new WaitForSeconds(5);
+            while (true)
+            {
+                Thing++;
+                yield return wait;
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
+        {
+            try
+            {
+                if (PropertyChanged != null)
+                {
+                    Logger.log?.Critical($"NotifyingPropertyChanged: {propertyName}");
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+                }
+                else
+                {
+                    Logger.log?.Critical($"No subscribers for changed property: {propertyName}");
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.log?.Error($"Error Invoking PropertyChanged: {ex.Message}");
+                Logger.log?.Error(ex);
+            }
+        }
     }
 }
 //<list-setting>

@@ -114,6 +114,7 @@ namespace BSMLPractice.UI
 
         private void BackButton_Pressed()
         {
+            Logger.log?.Warn($"BackButton_Pressed");
             if (dismissFlow == null)
             {
                 var ty = typeof(FlowCoordinator);
