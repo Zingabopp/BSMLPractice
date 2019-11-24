@@ -1,10 +1,10 @@
 ﻿<vertical child-control-height='false'>
   <horizontal bg='panel-top' pad-left='10' pad-right='10' horizontal-fit='PreferredSize'>
-    <text text='Font and color picking!' color='#FFFFFFFF' faceColor='#FF0000FF' outlineColor='#0000FFFF' outlineWidth='.4' align='Center' font-size='10'
+    <text text='Font and color picking!' color='#FFFFFF20' outlineColor='#0000FF00' outlineWidth='.4' align='Center' font-size='10'
           font='SourceHanSansCN-Bold-SDF-Common-1(2k)'></text>
   </horizontal>
   <horizontal bg='round-rect-panel' pad='8'>
-    <text id='some-text' text='Looks at this fancy text.'></text>
+    <text id='some-text' text='Look at this fancy text.' color='Yellow'></text>
   </horizontal>
   <button on-click='press' text='Test Button'></button>
 </vertical>
