@@ -68,8 +68,11 @@ namespace BSMLPractice.Views
         protected override void DidActivate(bool firstActivation, ActivationType type)
         {
             base.DidActivate(firstActivation, type);
-            list.data = TableData;
-            list.tableView.ReloadData();
+            if (list != null)
+            {
+                list.data = TableData;
+                list.tableView.ReloadData();
+            }
         }
 
         public event Action OnReloadPressed;

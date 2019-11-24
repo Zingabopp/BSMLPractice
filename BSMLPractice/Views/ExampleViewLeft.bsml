@@ -6,10 +6,11 @@
               preferred-width='105' pad-top='-40' pad-left='25'
               spacing='0'>
       <horizontal bg='panel-top' pad-top='0' preferred-height='12'>
-        <text id='Example ID' text='~ExamplText' italics='~Italics' align='Center' font-size='10'></text>
+        <text id='Example ID' text='~ExamplText' font='~TextFont' color='#FFFFFFFF' faceColor='#FF000000' outlineColor='#0000FFFF' outlineWidth='.4' 
+              italics='~Italics' align='Center' font-size='10'></text>
       </horizontal>
       <vertical preferred-height='150' spacing='10'>
-        <button onClick='back-pressed' text='~OtherText' glowColor='none' interactable='True'></button>
+        <button onClick='back-pressed' text='~OtherText' glowColor='Red' interactable='True'></button>
         <text text='Test'/>
       </vertical>
       <vertical preferred-width='105' pad-top='12'>

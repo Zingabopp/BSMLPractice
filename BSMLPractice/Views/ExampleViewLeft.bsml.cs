@@ -36,7 +36,7 @@ namespace BSMLPractice.Views
             {
                 if (_exampleText == value)
                     return;
-                Logger.log?.Error($"Changing ExampleText to {value}");
+                //Logger.log?.Error($"Changing ExampleText to {value}");
                 _exampleText = value;
                 NotifyPropertyChanged();
             }
@@ -54,8 +54,26 @@ namespace BSMLPractice.Views
             {
                 if (_otherText == value)
                     return;
-                Logger.log?.Error($"Changing OtherText to {value}");
+                //Logger.log?.Error($"Changing OtherText to {value}");
                 _otherText = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        private string _fontName;
+        [UIValue("TextFont")]
+        public string FontName
+        {
+            get
+            {
+                return _fontName ?? string.Empty;
+            }
+            set
+            {
+                if (_fontName == value)
+                    return;
+                Logger.log?.Error($"Changing FontName to {value}");
+                _fontName = value;
                 NotifyPropertyChanged();
             }
         }
@@ -108,12 +126,12 @@ namespace BSMLPractice.Views
             {
                 if (PropertyChanged != null)
                 {
-                    Logger.log?.Critical($"NotifyingPropertyChanged: {propertyName}");
+                    //Logger.log?.Critical($"NotifyingPropertyChanged: {propertyName}");
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
                 }
                 else
                 {
-                    Logger.log?.Critical($"No subscribers for changed property: {propertyName}");
+                    //Logger.log?.Critical($"No subscribers for changed property: {propertyName}");
                 }
             }
             catch (Exception ex)
@@ -126,7 +144,7 @@ namespace BSMLPractice.Views
 
         private IEnumerator ExampleCoroutine()
         {
-            Logger.log?.Info($"{name}.ExampleCoroutine(): In ExampleCoroutine().");
+            //Logger.log?.Info($"{name}.ExampleCoroutine(): In ExampleCoroutine().");
             WaitForSeconds exampleWait = new WaitForSeconds(5); // Created here so we can reuse it in the loop.
             WaitUntil waitUntilTrue = new WaitUntil(() => Plugin.ExampleGameplayBoolSetting);
             while (true)
@@ -134,10 +152,14 @@ namespace BSMLPractice.Views
                 int count = 1;
                 while (Plugin.ExampleGameplayBoolSetting)
                 {
-                    Logger.log?.Info($"Count is {count}, ExampleGameplayListSetting: {Plugin.ExampleGameplayListSetting}");
+                    //Logger.log?.Info($"Count is {count}, ExampleGameplayListSetting: {Plugin.ExampleGameplayListSetting}");
                     ExampleText = $"Example: {count}";
                     OtherText = $"OtherText: {-count}";
                     Italics = !Italics;
+                    if (Italics)
+                        FontName = "SourceHanSansCN-Bold-SDF-Common-1(2k)";
+                    else
+                        FontName = "Teko-Medium SDF No Glow";
                     count++;
                     // yield return new WaitForSeconds(5); // Could do this, but it would create extra garbage to recreate the same object every time.
                     yield return exampleWait;

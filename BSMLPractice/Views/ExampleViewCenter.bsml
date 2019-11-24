@@ -1,18 +1,35 @@
 ﻿<vertical child-control-height='false'>
+  
   <horizontal bg='panel-top' pad-top='0' preferred-height='6'>
     <text text='Example' align='Center' font-size='5' ignore-layout='true'/>
   </horizontal>
-  <horizontal pad-bottom='5' preferred-width='150' preferred-height='60' bg='round-rect-panel'>
-    <vertical child-control-height='true' pad-top='8' pad-bottom='2'>
-      <page-button click-event='list#PageUp' direction='Up' button-width='50'
-                   ignore-layout='true'/>
-      <list id='list' data='table-data' list-style='List' visible-cells='5' />
-      <page-button click-event='list#PageDown' direction='Down' glow-color='#FF0000FF' button-width='50'
-                   ignore-layout='true' anchor-pos-y='-59' />
-    </vertical>
+  <horizontal preferred-width='150' preferred-height='60'>
+    <horizontal preferred-width='70' preferred-height='60' bg='round-rect-panel' pad-top='1' pad-bottom='1'>
+      <page-button click-event='list#PageUp' glow-color='Yellow' direction='Left' button-width='40' />
+      <vertical child-control-height='true'>
+        <page-button click-event='list#PageUp' glow-color='Blue' direction='Up' button-width='50'/>
+        <vertical bg='round-rect-panel' bg-color='#DC143C00'>
+          <list id='list' data='table-data' list-style='List' visible-cells='5' />
+        </vertical>
+        <page-button click-event='list#PageDown' direction='Down' glow-color='Red' button-width='50' />
+      </vertical>
+      <page-button click-event='list#PageUp' glow-color='Green' direction='Right' button-width='40'/>
+    </horizontal>
     <vertical bg='round-rect-panel' bg-color='#DC143C' preferred-width='80'>
       
     </vertical>
   </horizontal>
-  <button on-click='press' text='Reload Left'></button>
+  <button on-click='press' text='Reload Left' glowColor='Red'></button>
+  <!--<horizontal child-control-width='false' ignore-layout='true' anchor-pos-x='-30' horizontal-fit='PreferredSize' spacing='0'>
+    <page-button click-event='list#PageUp' glow-color='Yellow' direction='Left' />
+    <page-button click-event='list#PageUp' glow-color='Blue'  direction='Right' />
+    <page-button click-event='list#PageDown' glow-color='Red' direction='Left' />
+    <page-button click-event='list#PageUp' glow-color='Green' direction='Right' />
+  </horizontal>
+  <vertical child-control-width='false' ignore-layout='true' anchor-pos-x='30' vertical-fit='PreferredSize' spacing='2'>
+    <page-button click-event='list#PageDown' glow-color='Yellow' direction='Down' />
+    <page-button click-event='list#PageUp' glow-color='Blue'  direction='Up' />
+    <page-button click-event='list#PageDown' glow-color='Red' direction='Down' />
+    <page-button click-event='list#PageDown' glow-color='Green' direction='Up' />
+  </vertical>-->
 </vertical>

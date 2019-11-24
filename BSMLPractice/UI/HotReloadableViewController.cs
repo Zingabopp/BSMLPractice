@@ -35,6 +35,8 @@ namespace BSMLPractice.UI
         public abstract string ResourceName { get; }
         public abstract string ResourceFilePath { get; }
 
+        public virtual string FallbackContent { get; }
+
         private string _content;
         public override string Content
         {
