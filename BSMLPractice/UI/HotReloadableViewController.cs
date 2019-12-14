@@ -20,10 +20,20 @@ namespace BSMLPractice.UI
             internal WatcherGroup(string directory)
             {
                 ContentDirectory = directory;
+                CreateWatcher();
+            }
+            private void CreateWatcher()
+            {
+                if (Watcher != null) return;
                 if (!Directory.Exists(ContentDirectory)) return;
-                Watcher = new FileSystemWatcher(directory, "*.bsml");
+                Watcher = new FileSystemWatcher(ContentDirectory, "*.bsml");
                 Watcher.NotifyFilter = NotifyFilters.LastWrite;
                 Watcher.Changed += Watcher_Changed;
+            }
+            private void DestroyWatcher()
+            {
+                Watcher.Dispose();
+                Watcher = null;
             }
 
             private void Watcher_Changed(object sender, FileSystemEventArgs e)
@@ -42,7 +52,7 @@ namespace BSMLPractice.UI
                     }
                 }
                 if (BoundControllers.Count == 0)
-                    Watcher.EnableRaisingEvents = false;
+                    DestroyWatcher();
             }
             WaitForSeconds HotReloadDelay = new WaitForSeconds(.5f);
             internal bool IsReloading { get; private set; }
@@ -70,6 +80,7 @@ namespace BSMLPractice.UI
             {
                 if (BoundControllers.ContainsKey(controller.GetInstanceID())) return false;
                 BoundControllers.Add(controller.GetInstanceID(), new WeakReference<HotReloadableViewController>(controller));
+                CreateWatcher();
                 Watcher.EnableRaisingEvents = true;
                 return true;
             }
@@ -78,10 +89,11 @@ namespace BSMLPractice.UI
             {
                 bool remove = BoundControllers.Remove(controller.GetInstanceID());
                 if (BoundControllers.Count == 0)
-                    Watcher.EnableRaisingEvents = false;
+                    DestroyWatcher();
                 return remove;
             }
         }
+
         private static Dictionary<string, WatcherGroup> WatcherDictionary = new Dictionary<string, WatcherGroup>();
         public static bool RegisterViewController(HotReloadableViewController controller)
         {
@@ -90,7 +102,7 @@ namespace BSMLPractice.UI
             string contentDirectory = Path.GetDirectoryName(contentFile);
             if (!Directory.Exists(contentDirectory)) return false;
             WatcherGroup watcherGroup;
-            if(!WatcherDictionary.TryGetValue(contentDirectory, out watcherGroup))
+            if (!WatcherDictionary.TryGetValue(contentDirectory, out watcherGroup))
                 watcherGroup = new WatcherGroup(contentDirectory);
             watcherGroup.BindController(controller);
 
