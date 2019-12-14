@@ -120,27 +120,6 @@ namespace BSMLPractice.Views
 
         public event Action<ViewController> OnBackPressed;
         public event Action OnTestPressed;
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
-        {
-            try
-            {
-                if (PropertyChanged != null)
-                {
-                    //Logger.log?.Critical($"NotifyingPropertyChanged: {propertyName}");
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-                }
-                else
-                {
-                    //Logger.log?.Critical($"No subscribers for changed property: {propertyName}");
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger.log?.Error($"Error Invoking PropertyChanged: {ex.Message}");
-                Logger.log?.Error(ex);
-            }
-        }
 
 
         private IEnumerator ExampleCoroutine()
