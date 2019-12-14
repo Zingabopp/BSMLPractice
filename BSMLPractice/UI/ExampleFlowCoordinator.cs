@@ -37,16 +37,16 @@ namespace BSMLPractice.UI
                     showBackButton = true;
                     ProvideInitialViewControllers(_centerViewController, _leftViewController, _rightViewController);
                 }
-                //if (activationType == ActivationType.AddedToHierarchy)
-                //{
-                //    Logger.log?.Warn("AddedToHierarchy");
-                //    _leftViewController.OnBackPressed -= BackButton_Pressed;
-                //    _leftViewController.OnBackPressed += BackButton_Pressed;
-                //}
-                //else
-                //{
-                //    Logger.log?.Warn("NotAddedToHierarchy");
-                //}
+                if (activationType == ActivationType.AddedToHierarchy)
+                {
+                    Logger.log?.Warn("AddedToHierarchy");
+                    _leftViewController.OnBackPressed -= BackButtonWasPressed;
+                    _leftViewController.OnBackPressed += BackButtonWasPressed;
+                }
+                else
+                {
+                    Logger.log?.Warn("NotAddedToHierarchy");
+                }
             }
             catch (Exception ex)
             {
@@ -76,7 +76,7 @@ namespace BSMLPractice.UI
 
         protected override void BackButtonWasPressed(ViewController topViewController)
         {
-            Logger.log?.Info($"BackButtonWasPressed");
+            Logger.log?.Info($"BackButtonWasPressed. topViewController is {topViewController?.name ?? "null"}");
             if (dismissFlow == null)
             {
                 var dismissMethod = typeof(FlowCoordinator).GetMethod("DismissFlowCoordinator", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);

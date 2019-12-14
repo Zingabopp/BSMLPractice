@@ -1,6 +1,7 @@
 ﻿using BeatSaberMarkupLanguage.Attributes;
 using BeatSaberMarkupLanguage.Notify;
 using BeatSaberMarkupLanguage.ViewControllers;
+using HMUI;
 //using BSMLPractice.Notify;
 using System;
 using System.Collections;
@@ -103,7 +104,7 @@ namespace BSMLPractice.Views
         [UIAction("back-pressed")]
         private void BackButtonPressed()
         {
-            OnBackPressed?.Invoke();
+            OnBackPressed?.Invoke(this);
         }
 
         [UIValue("GlowColor")]
@@ -117,7 +118,7 @@ namespace BSMLPractice.Views
             base.OnDestroy();
         }
 
-        public event Action OnBackPressed;
+        public event Action<ViewController> OnBackPressed;
         public event Action OnTestPressed;
         public event PropertyChangedEventHandler PropertyChanged;
         protected void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
