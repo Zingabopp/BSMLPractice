@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace BSMLPractice.Views
 {
-    public class ExampleViewLeft : HotReloadableViewController, INotifiableHost
+    public class ExampleViewLeft : BSMLPractice.UI.HotReloadableViewController, INotifiableHost
     {
         public void Start()
         {
@@ -23,7 +23,7 @@ namespace BSMLPractice.Views
             StartCoroutine(ExampleCoroutine());
         }
         public override string ResourceName => BSMLNames.ExampleViewLeft;
-        public override string ResourceFilePath => @"C:\Users\Jared\source\repos\BSMLPractice\BSMLPractice\Views\ExampleViewLeft.bsml";
+        public override string ContentFilePath => @"C:\Users\Jared\source\repos\BSMLPractice\BSMLPractice\Views\ExampleViewLeft.bsml";
 
         private string _exampleText;
         [UIValue("ExamplText")]

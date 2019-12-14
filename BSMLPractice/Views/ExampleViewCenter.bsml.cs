@@ -15,7 +15,7 @@ namespace BSMLPractice.Views
     public class ExampleViewCenter : HotReloadableViewController
     {
         public override string ResourceName => BSMLNames.ExampleViewCenter;
-        public override string ResourceFilePath => @"C:\Users\Jared\source\repos\BSMLPractice\BSMLPractice\Views\ExampleViewCenter.bsml";
+        public override string ContentFilePath => @"C:\Users\Jared\source\repos\BSMLPractice\BSMLPractice\Views\ExampleViewCenter.bsml";
         [UIComponent("list")]
         public CustomListTableData list;
         public static List<Stuff> StuffList;

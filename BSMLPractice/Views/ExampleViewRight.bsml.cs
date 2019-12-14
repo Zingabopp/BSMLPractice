@@ -14,7 +14,7 @@ namespace BSMLPractice.Views
     public class ExampleViewRight : HotReloadableViewController
     {
         public override string ResourceName => BSMLNames.ExampleViewRight;
-        public override string ResourceFilePath => @"C:\Users\Jared\source\repos\BSMLPractice\BSMLPractice\Views\ExampleViewRight.bsml";
+        public override string ContentFilePath => @"C:\Users\Jared\source\repos\BSMLPractice\BSMLPractice\Views\ExampleViewRight.bsml";
 
         [UIComponent("some-text")]
         private TextMeshProUGUI text;
