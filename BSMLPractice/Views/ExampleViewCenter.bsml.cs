@@ -64,9 +64,9 @@ namespace BSMLPractice.Views
             OnReloadPressed?.Invoke();
         }
 
-        protected override void DidActivate(bool firstActivation, ActivationType type)
+        [UIAction("#post-parse")]
+        internal void SetupList()
         {
-            base.DidActivate(firstActivation, type);
             if (list != null)
             {
                 list.data = TableData;
