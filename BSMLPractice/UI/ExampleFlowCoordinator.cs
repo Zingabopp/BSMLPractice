@@ -45,7 +45,7 @@ namespace BSMLPractice.UI
                 {
                     Logger.log?.Warn("NotAddedToHierarchy");
                 }
-                StartCoroutine(HotReloadCoroutine());
+                //StartCoroutine(HotReloadCoroutine());
             }
             catch (Exception ex)
             {
@@ -73,7 +73,6 @@ namespace BSMLPractice.UI
                     yield return waitTime;
                 }
             }
-
         }
 
 
