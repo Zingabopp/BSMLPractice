@@ -34,18 +34,19 @@ namespace BSMLPractice.UI
                     _rightViewController.name = "BSMLPractice.RightView";
                     Logger.log?.Warn("Right created");
                     base.title = "BSMLPractice";
+                    showBackButton = true;
                     ProvideInitialViewControllers(_centerViewController, _leftViewController, _rightViewController);
                 }
-                if (activationType == ActivationType.AddedToHierarchy)
-                {
-                    Logger.log?.Warn("AddedToHierarchy");
-                    _leftViewController.OnBackPressed -= BackButton_Pressed;
-                    _leftViewController.OnBackPressed += BackButton_Pressed;
-                }
-                else
-                {
-                    Logger.log?.Warn("NotAddedToHierarchy");
-                }
+                //if (activationType == ActivationType.AddedToHierarchy)
+                //{
+                //    Logger.log?.Warn("AddedToHierarchy");
+                //    _leftViewController.OnBackPressed -= BackButton_Pressed;
+                //    _leftViewController.OnBackPressed += BackButton_Pressed;
+                //}
+                //else
+                //{
+                //    Logger.log?.Warn("NotAddedToHierarchy");
+                //}
             }
             catch (Exception ex)
             {
@@ -73,14 +74,13 @@ namespace BSMLPractice.UI
         private delegate void DismissFlowDel(FlowCoordinator self, FlowCoordinator newF, Action finished, bool immediate);
         private static DismissFlowDel dismissFlow;
 
-        private void BackButton_Pressed()
+        protected override void BackButtonWasPressed(ViewController topViewController)
         {
-            Logger.log?.Warn($"BackButton_Pressed");
+            Logger.log?.Info($"BackButtonWasPressed");
             if (dismissFlow == null)
             {
-                var ty = typeof(FlowCoordinator);
-                var m = ty.GetMethod("DismissFlowCoordinator", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
-                dismissFlow = (DismissFlowDel)Delegate.CreateDelegate(typeof(DismissFlowDel), m);
+                var dismissMethod = typeof(FlowCoordinator).GetMethod("DismissFlowCoordinator", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+                dismissFlow = (DismissFlowDel)Delegate.CreateDelegate(typeof(DismissFlowDel), dismissMethod);
             }
             MainFlowCoordinator mainFlow = Resources.FindObjectsOfTypeAll<MainFlowCoordinator>().First();
             dismissFlow(mainFlow, this, null, false);
