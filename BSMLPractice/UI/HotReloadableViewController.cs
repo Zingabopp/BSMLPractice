@@ -8,7 +8,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
-using VRUI;
+using HMUI;
 
 namespace BSMLPractice.UI
 {
@@ -20,10 +20,10 @@ namespace BSMLPractice.UI
             {
                 try
                 {
-                    viewController.__Deactivate(VRUIViewController.DeactivationType.NotRemovedFromHierarchy, false);
+                    viewController.__Deactivate(ViewController.DeactivationType.NotRemovedFromHierarchy, false);
                     for (int i = 0; i < viewController.transform.childCount; i++)
                         GameObject.Destroy(viewController.transform.GetChild(i).gameObject);
-                    viewController.__Activate(VRUIViewController.ActivationType.NotAddedToHierarchy);
+                    viewController.__Activate(ViewController.ActivationType.NotAddedToHierarchy);
                 }
                 catch (Exception ex)
                 {

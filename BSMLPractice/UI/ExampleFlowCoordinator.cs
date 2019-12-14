@@ -1,5 +1,5 @@
 ﻿using System;
-using VRUI;
+using HMUI;
 using BeatSaberMarkupLanguage;
 using UnityEngine;
 using BSMLPractice.Views;
@@ -33,11 +33,11 @@ namespace BSMLPractice.UI
                     _rightViewController = BeatSaberUI.CreateViewController<ExampleViewRight>();
                     Logger.log?.Warn("Right created");
                     base.title = "BSMLPractice";
+                    ProvideInitialViewControllers(_centerViewController, _leftViewController, _rightViewController);
                 }
                 if (activationType == ActivationType.AddedToHierarchy)
                 {
                     Logger.log?.Warn("AddedToHierarchy");
-                    ProvideInitialViewControllers(_centerViewController, _leftViewController, _rightViewController);
                     _leftViewController.OnBackPressed -= BackButton_Pressed;
                     _leftViewController.OnBackPressed += BackButton_Pressed;
                 }

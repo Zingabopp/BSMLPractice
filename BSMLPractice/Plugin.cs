@@ -66,8 +66,16 @@ namespace BSMLPractice
         {
             ExampleGameplayBoolSetting = true;
             Logger.log.Debug("OnApplicationStart");
-            CustomUI.Utilities.BSEvents.menuSceneLoadedFresh += MenuLoadedFresh;
-            ApplyHarmonyPatches();
+            BS_Utils.Utilities.BSEvents.menuSceneLoadedFresh += MenuLoadedFresh;
+            try
+            {
+                MenuButtons.instance.RegisterButton(new MenuButton("BSML Practice", OnClick));
+            }
+            catch (Exception ex)
+            {
+                Logger.log?.Error(ex);
+            }
+            //ApplyHarmonyPatches();
         }
 
         /// <summary>
@@ -122,16 +130,8 @@ namespace BSMLPractice
             }
             if (nextScene.name == "MenuCore")
             {
-                CustomUI.MenuButton.MenuButtonUI.AddButton("BSMLPractice", "BSMLPractice hint text.", OnClick);
-                BSMLSettings.instance.AddSettingsMenu(Name, Views.BSMLNames.BSMLSettingsView, Views.BSMLSettingsView.instance);
-                try
-                {
-                    MenuButtons.instance.RegisterButton(new MenuButton("BSML Practice", OnClick));
-                }
-                catch (Exception ex)
-                {
-                    Logger.log?.Error(ex);
-                }
+                //CustomUI.MenuButton.MenuButtonUI.AddButton("BSMLPractice", "BSMLPractice hint text.", OnClick);
+
                 var exampleGameObject = new GameObject($"{Name}.ExampleMonobehaviour").AddComponent<ExampleMonobehaviour>();
             }
             if (nextScene.name == "GameCore")
@@ -144,12 +144,11 @@ namespace BSMLPractice
         internal static void OnClick()
         {
             if (ExampleView == null)
-                ExampleView = new GameObject("BSMLPractice.ExampleFlowCoordinator").AddComponent<UI.ExampleFlowCoordinator>();
-            MainFlowCoordinator main = Resources.FindObjectsOfTypeAll<MainFlowCoordinator>().First();
-            foreach (var item in main.mainScreenViewControllers)
             {
-                Logger.log?.Critical($"{item.name}: {item.navigationController?.name}");
+                ExampleView = BeatSaberMarkupLanguage.BeatSaberUI.CreateFlowCoordinator<UI.ExampleFlowCoordinator>();
+                ExampleView.name = "BSMLPractice.ExampleFlowCoordinator";
             }
+            MainFlowCoordinator main = Resources.FindObjectsOfTypeAll<MainFlowCoordinator>().First();
             if (main != null)
             {
                 main.InvokePrivateMethod("PresentFlowCoordinator", new object[] { ExampleView, null, false, false });
@@ -172,12 +171,11 @@ namespace BSMLPractice
         /// </summary>
         public void MenuLoadedFresh()
         {
-            {
-                configProvider.Store(config.Value); // Save settings.
-                Logger.log.Debug("Creating plugin's UI");
-                UI.BSMLPractice_SettingsUI.CreateUI();
-
-            }
+            configProvider.Store(config.Value); // Save settings.
+            Logger.log.Debug("Creating plugin's UI");
+            //UI.BSMLPractice_SettingsUI.CreateUI();
+            BSMLSettings.instance.AddSettingsMenu(Name, Views.BSMLNames.BSMLSettingsView, Views.BSMLSettingsView.instance);
+            
         }
 
         /// <summary>

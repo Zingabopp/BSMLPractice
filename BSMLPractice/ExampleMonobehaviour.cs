@@ -35,8 +35,8 @@ namespace BSMLPractice
                 while (Plugin.ExampleGameplayBoolSetting)
                 {
                     //Logger.log?.Info($"{name}.ExampleCoroutine(): ExampleGamePlayBoolSetting is true, count is {count}, ExampleGameplayListSetting: {Plugin.ExampleGameplayListSetting}");
-                    var nav = BeatSaberMarkupLanguage.BeatSaberUI.CreateDismissableNavigationController();
-                    nav.PresentViewControllerCoroutine(new Views.ExampleViewCenter(), null, true);
+                    //var nav = BeatSaberMarkupLanguage.BeatSaberUI.CreateDismissableNavigationController();
+                    //nav.PresentViewControllerCoroutine(new Views.ExampleViewCenter(), null, true);
                     count++;
                     CurrentCount = count;
                     // yield return new WaitForSeconds(5); // Could do this, but it would create extra garbage to recreate the same object every time.
