@@ -162,7 +162,12 @@ namespace BSMLPractice
         /// </summary>
         public void OnUpdate()
         {
-
+            if (Input.GetKeyDown(KeyCode.U))
+            {
+                Logger.log.Warn("Forcing Garbage Collection");
+                GC.Collect();
+                GC.WaitForPendingFinalizers();
+            }
         }
 
         /// <summary>

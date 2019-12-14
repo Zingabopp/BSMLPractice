@@ -8,14 +8,13 @@ using BeatSaberMarkupLanguage.Attributes;
 using BeatSaberMarkupLanguage.ViewControllers;
 using BeatSaberMarkupLanguage.Components;
 using SongCore;
-using BSMLPractice.UI;
 using HMUI;
 
 namespace BSMLPractice.Views
 {
     public class ExampleViewCenter : HotReloadableViewController
     {
-        public override string ResourceName => BSMLNames.ExampleViewLeft;
+        public override string ResourceName => BSMLNames.ExampleViewCenter;
         public override string ResourceFilePath => @"C:\Users\Jared\source\repos\BSMLPractice\BSMLPractice\Views\ExampleViewCenter.bsml";
         [UIComponent("list")]
         public CustomListTableData list;

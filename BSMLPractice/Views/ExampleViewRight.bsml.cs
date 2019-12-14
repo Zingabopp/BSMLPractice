@@ -8,7 +8,6 @@ using BeatSaberMarkupLanguage.Attributes;
 using BeatSaberMarkupLanguage.ViewControllers;
 using System.IO;
 using BeatSaberMarkupLanguage;
-using BSMLPractice.UI;
 
 namespace BSMLPractice.Views
 {

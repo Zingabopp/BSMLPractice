@@ -10,7 +10,7 @@
       </horizontal>
       <vertical preferred-height='150' spacing='10'>
         <button onClick='back-pressed' text='~OtherText' glowColor='Red' interactable='True'></button>
-        <text text='Test2'/>
+        <text text='Test'/>
       </vertical>
       <vertical preferred-width='105' pad-top='12'>
         <bottom-button-panel spacing='0'>

@@ -1,7 +1,7 @@
 ﻿using BeatSaberMarkupLanguage.Attributes;
 using BeatSaberMarkupLanguage.Notify;
+using BeatSaberMarkupLanguage.ViewControllers;
 //using BSMLPractice.Notify;
-using BSMLPractice.UI;
 using System;
 using System.Collections;
 using System.Runtime.CompilerServices;

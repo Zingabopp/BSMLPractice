@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Linq;
 using System.Collections.Generic;
 using System.IO;
+using BeatSaberMarkupLanguage.ViewControllers;
 
 namespace BSMLPractice.UI
 {
@@ -15,7 +16,6 @@ namespace BSMLPractice.UI
         private ExampleViewCenter _centerViewController;
         private ExampleViewLeft _leftViewController;
         private ExampleViewRight _rightViewController;
-        //protected VRUINavigationController leftNavigationController;
 
         protected override void DidActivate(bool firstActivation, ActivationType activationType)
         {
@@ -23,14 +23,15 @@ namespace BSMLPractice.UI
             {
                 if (firstActivation)
                 {
-                    //leftNavigationController = BeatSaberUI.CreateViewController<VRUINavigationController>();
                     Logger.log?.Warn("First activation");
                     _centerViewController = BeatSaberUI.CreateViewController<ExampleViewCenter>();
+                    _centerViewController.name = "BSMLPractice.CenterView";
                     Logger.log?.Warn("Center created");
                     _leftViewController = BeatSaberUI.CreateViewController<ExampleViewLeft>();
-                    //SetViewControllerToNavigationConctroller(leftNavigationController, _leftViewController);
+                    _leftViewController.name = "BSMLPractice.LeftView";
                     Logger.log?.Warn("Left created");
                     _rightViewController = BeatSaberUI.CreateViewController<ExampleViewRight>();
+                    _rightViewController.name = "BSMLPractice.RightView";
                     Logger.log?.Warn("Right created");
                     base.title = "BSMLPractice";
                     ProvideInitialViewControllers(_centerViewController, _leftViewController, _rightViewController);
@@ -45,50 +46,11 @@ namespace BSMLPractice.UI
                 {
                     Logger.log?.Warn("NotAddedToHierarchy");
                 }
-                //StartCoroutine(HotReloadCoroutine());
             }
             catch (Exception ex)
             {
                 Logger.log?.Error(ex);
             }
-        }
-        private IEnumerator<WaitForSeconds> HotReloadCoroutine()
-        {
-            var waitTime = new WaitForSeconds(.5f);
-            using (var watcher = new FileSystemWatcher())
-            {
-                watcher.Path = Path.GetDirectoryName(_leftViewController.ResourceFilePath);
-                watcher.Filter = "*.bsml";
-                watcher.NotifyFilter = NotifyFilters.LastWrite;
-                watcher.Changed += Watcher_Changed;
-                watcher.EnableRaisingEvents = true;
-                while (isActivated)
-                {
-                    if (_leftViewController.ContentChanged)
-                        HotReloadableViewController.RefreshViewController(_leftViewController);
-                    if (_rightViewController.ContentChanged)
-                        HotReloadableViewController.RefreshViewController(_rightViewController);
-                    if (_centerViewController.ContentChanged)
-                        HotReloadableViewController.RefreshViewController(_centerViewController);
-                    yield return waitTime;
-                }
-            }
-        }
-
-
-        private void Watcher_Changed(object sender, FileSystemEventArgs e)
-        {
-            if (e.FullPath == _leftViewController.ResourceFilePath)
-                _leftViewController.MarkDirty();
-            if (e.FullPath == _rightViewController.ResourceFilePath)
-                _rightViewController.MarkDirty();
-            if (e.FullPath == _centerViewController.ResourceFilePath)
-                _centerViewController.MarkDirty();
-        }
-
-        protected override void DidDeactivate(DeactivationType type)
-        {
-            StopCoroutine(HotReloadCoroutine());
         }
 
         #region From BSIPA-ModList
